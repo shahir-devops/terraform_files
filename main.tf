@@ -8,13 +8,13 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-south-1"
+  region  = "ap-south-1"
   profile = "terraformprofile"
 }
 provider "aws" {
-  region = "ap-south-2"
+  region  = "ap-south-2"
   profile = "terraformprofile"
-  alias = "hyderabad"
+  alias   = "hyderabad"
 }
 /*
 data "aws_ami" "redhatlat"{
@@ -62,17 +62,17 @@ resource "aws_s3_bucket" "mybucket"{
 */
 
 
-resource "aws_instance" "web"{
-  ami = "ami-001ce22601d4c605f"
-  instance_type = "t2.micro"
+resource "aws_instance" "web" {
+  ami               = "ami-001ce22601d4c605f"
+  instance_type     = "t2.micro"
   availability_zone = "ap-south-1a"
-  count = 1
-  tags={
-    "Name"= "AppServer"
+  count             = 1
+  tags = {
+    "Name" = "AppServer"
   }
   lifecycle {
     create_before_destroy = true
-    prevent_destroy = true
+    prevent_destroy       = true
   }
 }
 
