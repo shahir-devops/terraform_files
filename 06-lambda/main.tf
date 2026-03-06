@@ -7,3 +7,4 @@ resource "aws_lambda_function" "my_lambda" {
   filename         = "lambda.zip"
   source_code_hash = filebase64sha256("lambda.zip")
 }
+
