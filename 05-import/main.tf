@@ -6,3 +6,9 @@ resource "aws_instance" "import" {
     Name = "demo"
   }
 }
+
+/*
+import is used to bring existing infrastructure (already created outside the terraform)
+into terraform state so terraform can manage it.
+*/
+
