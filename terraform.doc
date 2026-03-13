@@ -1,0 +1,277 @@
+1. Provider ,Definition:
+A provider is a plugin that allows Terraform to interact with APIs of cloud platforms such as AWS, Azure, or GCP.
+
+Example:
+provider aws {
+  region = ap-south-1
+}     ,
+
+2. Variables ,
+   Definition:
+Variables allow you to parameterize Terraform configurations.
+
+Example:
+variable instance_type {
+  default = t2.micro
+}
+
+resource aws_instance example {
+  instance_type = var.instance_type
+}     ,
+
+3. Desired State ,
+   Definition:
+Desired state is the configuration defined in Terraform code representing the infrastructure you want.     ,
+
+4. Current State ,
+   Definition:
+Current state is the real infrastructure status stored in the Terraform state file   terraform.tfstate  .     ,
+
+5. terraform.tfvars ,
+   Definition:
+File used to assign values to variables.
+
+Example:
+instance_type = t2.micro
+region = ap-south-1     ,
+
+6. S3 Remote Backend ,
+   Definition:
+Stores Terraform state remotely in S3 for collaboration.
+
+Example:
+terraform {
+ backend s3 {
+   bucket = my-terraform-state
+   key    = terraform.tfstate
+   region = ap-south-1
+ }
+}     ,
+
+   7. VPC ,
+   Definition:
+Virtual Private Cloud provides isolated network infrastructure in AWS.
+
+Example:
+resource aws_vpc main {
+  cidr_block = 10.0.0.0/16
+}     ,
+
+   8. EC2 ,
+   Definition:
+Elastic Compute Cloud provides virtual servers.
+
+Example:
+resource aws_instance web {
+  ami           = ami-123456
+  instance_type = t2.micro
+}     ,
+
+   9. S3 ,
+   Definition:
+Simple Storage Service provides scalable object storage.
+
+Example:
+resource aws_s3_bucket bucket {
+  bucket = my-terraform-bucket
+}     ,
+
+   10. Security Groups ,
+   Definition:
+Acts as a virtual firewall controlling inbound and outbound traffic.
+
+Example:
+resource aws_security_group web_sg {
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = tcp
+    cidr_blocks = [0.0.0.0/0]
+  }
+}     ,
+
+   11. Outputs ,
+   Definition:
+Outputs display values after Terraform apply.
+
+Example:
+output instance_ip {
+  value = aws_instance.web.public_ip
+}     ,
+
+   12. Imports ,
+   Definition:
+Used to bring existing infrastructure under Terraform management.
+
+Example:
+terraform import aws_instance.web i-123456789     ,
+
+   13. Lifecycle Rules ,
+   Definition:
+Controls resource behavior such as preventing deletion.
+
+Example:
+lifecycle {
+  prevent_destroy = true
+}     ,
+
+   14. Lambda ,
+   Definition:
+AWS Lambda runs serverless code.
+
+Example:
+resource aws_lambda_function test {
+  function_name = my_lambda
+  runtime       = python3.9
+  handler       = index.handler
+}     ,
+
+   15. Lambda Trigger from S3 ,
+   Definition:
+Triggers Lambda when files are uploaded to S3.     ,
+
+   16. RDS ,
+   Definition:
+Amazon Relational Database Service provides managed databases.
+
+Example:
+resource aws_db_instance db {
+  engine         = mysql
+  instance_class = db.t3.micro
+}     ,
+
+   17. Modules ,
+   Definition:
+Reusable Terraform configuration blocks.
+
+Example:
+module ec2_instance {
+  source = ./modules/ec2
+}     ,
+
+   18. Terraform Registry RDS Module ,
+   Definition:
+Public modules available from Terraform Registry.
+
+Example:
+source = terraform-aws-modules/rds/aws     ,
+
+   19. Root Module & Child Modules ,
+   Definition:
+Root module is the main working directory.
+Child modules are reusable modules called from the root module.     ,
+
+   20. Data Sources ,
+   Definition:
+Used to fetch information from existing infrastructure.
+
+Example:
+data aws_vpc existing {
+  default = true
+}     ,
+
+   21. Data Source AMI ,
+   Definition:
+Fetch latest AMI dynamically.
+
+Example:
+data aws_ami amazon_linux {
+ most_recent = true
+ owners = [amazon]
+}     ,
+
+   22. depends_on ,
+   Definition:
+Explicit dependency between resources.
+
+Example:
+depends_on = [aws_vpc.main]     ,
+
+   23. target ,
+   Definition:
+Apply changes to a specific resource.
+
+Example:
+terraform apply -target=aws_instance.web     ,
+
+   24. Provisioners ,
+   Definition:
+Execute scripts on resources after creation.
+
+Example:
+provisioner remote-exec {
+ inline = [sudo yum update -y]
+}     ,
+
+   25. Dynamic Resources ,
+   Definition:
+Create repeated blocks dynamically.
+
+Example:
+dynamic ingress {
+ for_each = var.ports
+ content {
+   from_port = ingress.value
+ }
+}     ,
+
+   26. Null Resource ,
+   Definition:
+Used to run scripts without managing infrastructure.     ,
+
+   27. For Loop Security Groups ,
+   Definition:
+Create multiple security groups using loops.     ,
+
+   28. Multi Profile ,
+   Definition:
+Use multiple AWS profiles.
+
+Example:
+provider aws {
+ profile = dev
+}     ,
+
+   29. Conditions ,
+   Definition:
+Conditional expressions.
+
+Example:
+count = var.create_instance ? 1 : 0     ,
+
+   30. Count ,
+   Definition:
+Creates multiple instances.
+
+Example:
+count = 3     ,
+
+   31. for_each ,
+   Definition:
+Creates resources based on map or set.
+
+Example:
+for_each = toset  [dev, prod]       ,
+
+   32. SNS ,
+   Definition:
+Simple Notification Service for messaging.     ,
+
+   33. Workspace ,
+   Definition:
+Allows multiple environments using same code.
+
+Example:
+terraform workspace new dev     ,
+
+ 34. Locals ,
+   Definition:
+Local variables inside configuration.
+
+Example:
+locals {
+  environment = dev
+},
+
+35. OpenTofu Definition:
+Open-source Terraform fork used as Infrastructure as Code tool compatible with Terraform configurations.
