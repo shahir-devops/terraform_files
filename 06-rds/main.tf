@@ -14,7 +14,7 @@ resource "aws_db_instance" "mysqldb" {
 resource "aws_db_subnet_group" "sub_grp" {
   name = "main"
   subnet_ids = ["subnet-05e6b9d5eeba6b0e9",
-  "subnet-0cd44f22f73f37f72"]
+  "subnet-0cd44f22f73f37f72"] #subnet id will be in different az required in same region 
   tags = {
     Name = "My DB subnet group"
   }
